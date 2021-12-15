@@ -1,10 +1,11 @@
 @echo off
-
+:: Find the port to which the board is connected.
 set "port_number=0"
 for /f "tokens=1* delims==" %%I in ('wmic path win32_pnpentity get caption /format:list ^| find "CH340"') do (
     call :setCOM "%%~J" & goto :continue
 )
 
+:: Extract the port number from the port name and write the bin file.
 setlocal
 :setCOM <WMIC_output_line>
 set "str=%~1"
